@@ -7,18 +7,13 @@ import os
 # Initializing the mixer
 mixer.init()
 
-# Creating the master GUI for python music player
+# Creating the master GUI for the python music player
 root = Tk()
-root.geometry('700x220')
-root.title('PythonGeeks Music Player')
+root.geometry('900x450')
+root.title('Dalog Music Player')
 root.resizable(0, 0)
 
-
-# Finalizing the GUI
-root.update()
-root.mainloop()
-
-# Play, Stop, Load and Pause & Resume functions
+# Play, Stop, Load, Pause & Resume functions
 def play_song(song_name: StringVar, songs_list: Listbox, status: StringVar):
     song_name.set(songs_list.get(ACTIVE))
 
@@ -27,11 +22,9 @@ def play_song(song_name: StringVar, songs_list: Listbox, status: StringVar):
 
     status.set("Song PLAYING")
 
-
 def stop_song(status: StringVar):
     mixer.music.stop()
     status.set("Song STOPPED")
-
 
 def load(listbox):
     os.chdir(filedialog.askdirectory(title='Open a songs directory'))
@@ -41,11 +34,9 @@ def load(listbox):
     for track in tracks:
         listbox.insert(END, track)
 
-
 def pause_song(status: StringVar):
     mixer.music.pause()
     status.set("Song PAUSED")
-
 
 def resume_song(status: StringVar):
     mixer.music.unpause()
@@ -63,7 +54,6 @@ listbox_frame.place(x=400, y=0, height=200, width=300)
 
 # All StringVar variables
 current_song = StringVar(root, value='<Not selected>')
-
 song_status = StringVar(root, value='<Not Available>')    
 
 # Playlist ListBox
@@ -73,9 +63,7 @@ scroll_bar = Scrollbar(listbox_frame, orient=VERTICAL)
 scroll_bar.pack(side=RIGHT, fill=BOTH)
 
 playlist.config(yscrollcommand=scroll_bar.set)
-
 scroll_bar.config(command=playlist.yview)
-
 playlist.pack(fill=BOTH, padx=5, pady=5)
 
 # SongFrame Labels
@@ -106,3 +94,6 @@ load_btn.place(x=10, y=55)
 
 # Label at the bottom that displays the state of the music
 Label(root, textvariable=song_status, bg='SteelBlue', font=('Times', 9), justify=LEFT).pack(side=BOTTOM, fill=X)
+
+# Finalizing the GUI
+root.mainloop()
